@@ -22,3 +22,7 @@ dist/
 
 # OS
 .DS_Store
+
+# Local sibling clone of the Packmate Java repo used as reference material,
+# not part of this package.
+/Packmate/

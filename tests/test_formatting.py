@@ -91,7 +91,7 @@ def test_base64_multiple_packets_newline_separated() -> None:
 
 
 def test_text_utf8() -> None:
-    p = _packet("héllo".encode("utf-8"))
+    p = _packet("héllo".encode())
     out = format_content([p], ContentFormat.TEXT)
     assert out == "héllo"
 

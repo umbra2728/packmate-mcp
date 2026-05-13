@@ -8,8 +8,8 @@ from __future__ import annotations
 
 import logging
 import sys
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import AsyncIterator
 
 from mcp.server.fastmcp import FastMCP
 
@@ -34,7 +34,8 @@ def build_server() -> FastMCP:
     Settings are loaded from env at call time. The PackmateClient is opened in a
     lifespan context manager so it shares the FastMCP lifecycle.
     """
-    settings = PackmateSettings()
+    # pydantic-settings reads fields from env at runtime; mypy cannot see them statically.
+    settings = PackmateSettings()  # type: ignore[call-arg]
     _configure_logging(settings.log_level)
     log.info("Connecting to Packmate at %s", settings.base_url)
 

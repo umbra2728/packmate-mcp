@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from mcp.server.fastmcp import FastMCP
 
@@ -14,11 +14,11 @@ from packmate_mcp.models import PacketPagination, Stream, StreamPagination
 def register(mcp: FastMCP, client: PackmateClient) -> None:
     @mcp.tool()
     async def list_streams(
-        port: Optional[int] = None,
-        starting_from: Optional[int] = None,
+        port: int | None = None,
+        starting_from: int | None = None,
         page_size: int = 20,
         favorites: bool = False,
-        pattern_id: Optional[int] = None,
+        pattern_id: int | None = None,
     ) -> list[Stream]:
         """List streams (newest first).
 

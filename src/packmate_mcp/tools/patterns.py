@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Optional
+from typing import Annotated
 
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
@@ -31,8 +31,8 @@ def register(mcp: FastMCP, client: PackmateClient) -> None:
         action_type: PatternActionType,
         search_type: PatternSearchType,
         direction_type: PatternDirectionType,
-        color: Optional[str] = None,
-        service_port: Optional[int] = None,
+        color: str | None = None,
+        service_port: int | None = None,
     ) -> Pattern:
         """Create a pattern.
 
@@ -56,13 +56,13 @@ def register(mcp: FastMCP, client: PackmateClient) -> None:
     @mcp.tool()
     async def update_pattern(
         pattern_id: int,
-        name: Optional[str] = None,
-        value: Optional[str] = None,
-        color: Optional[str] = None,
-        action_type: Optional[PatternActionType] = None,
-        search_type: Optional[PatternSearchType] = None,
-        direction_type: Optional[PatternDirectionType] = None,
-        service_port: Optional[int] = None,
+        name: str | None = None,
+        value: str | None = None,
+        color: str | None = None,
+        action_type: PatternActionType | None = None,
+        search_type: PatternSearchType | None = None,
+        direction_type: PatternDirectionType | None = None,
+        service_port: int | None = None,
     ) -> Pattern:
         """Update a pattern. Only provided fields are changed."""
         return await client.update_pattern(
@@ -97,4 +97,9 @@ def register(mcp: FastMCP, client: PackmateClient) -> None:
 
         Useful after creating a new pattern to retroactively scan recent traffic.
         """
+        # FastMCP enforces Field(ge=1) when called over JSON-RPC, but we also need
+        # a runtime check here so direct callers and any path that bypasses FastMCP
+        # validation cannot send minutes<1 (Packmate silently ignores those calls).
+        if minutes < 1:
+            raise ValueError(f"`minutes` must be >= 1 (got {minutes}).")
         await client.pattern_lookback(pattern_id, minutes)

@@ -8,8 +8,8 @@ from __future__ import annotations
 
 import base64 as _base64
 import datetime as _dt
+from collections.abc import Sequence
 from enum import Enum
-from typing import Sequence
 
 from packmate_mcp.models import Packet
 

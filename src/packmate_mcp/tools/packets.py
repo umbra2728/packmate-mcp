@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from mcp.server.fastmcp import FastMCP
 
@@ -15,7 +15,7 @@ def register(mcp: FastMCP, client: PackmateClient) -> None:
     @mcp.tool()
     async def get_packets(
         stream_id: int,
-        starting_from: Optional[int] = None,
+        starting_from: int | None = None,
         page_size: int = 50,
         content_format: ContentFormat = ContentFormat.TRANSCRIPT,
         max_bytes_per_packet: int = 4096,

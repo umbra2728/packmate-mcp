@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from types import TracebackType
-from typing import Any, Optional
+from typing import Any
 
 import httpx
 
@@ -65,9 +65,9 @@ class PackmateClient:
 
     def __init__(self, settings: PackmateSettings) -> None:
         self._settings = settings
-        self._http: Optional[httpx.AsyncClient] = None
+        self._http: httpx.AsyncClient | None = None
 
-    async def __aenter__(self) -> "PackmateClient":
+    async def __aenter__(self) -> PackmateClient:
         self._http = httpx.AsyncClient(
             base_url=str(self._settings.base_url).rstrip("/"),
             auth=(self._settings.login, self._settings.password),
@@ -77,9 +77,9 @@ class PackmateClient:
 
     async def __aexit__(
         self,
-        exc_type: Optional[type[BaseException]],
-        exc: Optional[BaseException],
-        tb: Optional[TracebackType],
+        exc_type: type[BaseException] | None,
+        exc: BaseException | None,
+        tb: TracebackType | None,
     ) -> None:
         if self._http is not None:
             await self._http.aclose()
@@ -91,7 +91,7 @@ class PackmateClient:
         path: str,
         *,
         json: Any = None,
-        params: Optional[dict[str, Any]] = None,
+        params: dict[str, Any] | None = None,
     ) -> httpx.Response:
         assert self._http is not None, "PackmateClient must be used as async context manager"
         try:
@@ -109,7 +109,8 @@ class PackmateClient:
 
         if response.status_code in (401, 403):
             raise PackmateAuthError(
-                "Authentication failed. Check PACKMATE_MCP_LOGIN and PACKMATE_MCP_PASSWORD env vars."
+                "Authentication failed. Check PACKMATE_MCP_LOGIN and "
+                "PACKMATE_MCP_PASSWORD env vars."
             )
         if response.status_code == 404:
             raise PackmateNotFoundError(f"Resource not found: {method} {path}")
@@ -196,7 +197,7 @@ class PackmateClient:
         self,
         pagination: StreamPagination,
         *,
-        port: Optional[int] = None,
+        port: int | None = None,
     ) -> list[Stream]:
         path = "/api/stream/all" if port is None else f"/api/stream/{port}"
         r = await self._request(

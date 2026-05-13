@@ -7,7 +7,7 @@ callables directly and call them as async functions with mocked HTTP.
 from __future__ import annotations
 
 import base64
-from typing import AsyncIterator
+from collections.abc import AsyncIterator
 
 import httpx
 import pytest
@@ -179,7 +179,7 @@ async def test_pattern_lookback_validates_minutes(client: PackmateClient) -> Non
     register(mcp, client)
     fn = _tool_fn(mcp, "pattern_lookback")
 
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError, match=">= 1"):
         await fn(pattern_id=7, minutes=0)
 
 

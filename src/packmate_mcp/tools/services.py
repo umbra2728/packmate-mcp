@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from mcp.server.fastmcp import FastMCP
 
 from packmate_mcp.client import PackmateClient
@@ -45,12 +43,12 @@ def register(mcp: FastMCP, client: PackmateClient) -> None:
     @mcp.tool()
     async def update_service(
         port: int,
-        name: Optional[str] = None,
-        merge_adjacent_packets: Optional[bool] = None,
-        urldecode_http_requests: Optional[bool] = None,
-        decrypt_tls: Optional[bool] = None,
-        parse_web_sockets: Optional[bool] = None,
-        http: Optional[bool] = None,
+        name: str | None = None,
+        merge_adjacent_packets: bool | None = None,
+        urldecode_http_requests: bool | None = None,
+        decrypt_tls: bool | None = None,
+        parse_web_sockets: bool | None = None,
+        http: bool | None = None,
     ) -> Service:
         """Update a service. Only provided fields are changed."""
         payload = ServiceUpdate(

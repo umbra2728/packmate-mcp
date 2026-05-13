@@ -9,11 +9,10 @@ from __future__ import annotations
 
 import base64
 from enum import Enum
-from typing import Annotated, Any, Optional
+from typing import Annotated, Any
 
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 from pydantic.alias_generators import to_camel
-
 
 # ---------- enums ----------
 
@@ -91,23 +90,23 @@ class ServiceCreate(_Camel):
 
 
 class ServiceUpdate(_Camel):
-    name: Optional[str] = None
-    merge_adjacent_packets: Optional[bool] = None
-    urldecode_http_requests: Optional[bool] = None
-    decrypt_tls: Optional[bool] = None
-    parse_web_sockets: Optional[bool] = None
-    http: Optional[bool] = None
+    name: str | None = None
+    merge_adjacent_packets: bool | None = None
+    urldecode_http_requests: bool | None = None
+    decrypt_tls: bool | None = None
+    parse_web_sockets: bool | None = None
+    http: bool | None = None
 
 
 class Pattern(_Camel):
     id: int
     name: str
     value: str
-    color: Optional[str] = None
+    color: str | None = None
     action_type: PatternActionType
     search_type: PatternSearchType
     direction_type: PatternDirectionType
-    service: Optional[int] = None
+    service: int | None = None
     enabled: bool = True
 
 
@@ -117,18 +116,18 @@ class PatternCreate(_Camel):
     action_type: PatternActionType
     search_type: PatternSearchType
     direction_type: PatternDirectionType
-    color: Optional[str] = None
-    service: Optional[int] = Field(default=None, ge=1, le=65535)
+    color: str | None = None
+    service: int | None = Field(default=None, ge=1, le=65535)
 
 
 class PatternUpdate(_Camel):
-    name: Optional[str] = None
-    value: Optional[str] = None
-    color: Optional[str] = None
-    action_type: Optional[PatternActionType] = None
-    search_type: Optional[PatternSearchType] = None
-    direction_type: Optional[PatternDirectionType] = None
-    service: Optional[int] = Field(default=None, ge=1, le=65535)
+    name: str | None = None
+    value: str | None = None
+    color: str | None = None
+    action_type: PatternActionType | None = None
+    search_type: PatternSearchType | None = None
+    direction_type: PatternDirectionType | None = None
+    service: int | None = Field(default=None, ge=1, le=65535)
 
 
 class Stream(_Camel):
@@ -140,7 +139,7 @@ class Stream(_Camel):
     found_patterns_ids: list[int] = Field(default_factory=list)
     favorite: bool = False
     ttl: int = 0
-    user_agent_hash: Optional[str] = None
+    user_agent_hash: str | None = None
     size_bytes: int = 0
     packets_count: int = 0
 
@@ -164,12 +163,12 @@ class Packet(_Camel):
 
 
 class StreamPagination(_Camel):
-    starting_from: Optional[int] = None
+    starting_from: int | None = None
     page_size: int = Field(default=20, ge=1, le=500)
     favorites: bool = False
-    pattern: Optional[Pattern] = None
+    pattern: Pattern | None = None
 
 
 class PacketPagination(_Camel):
-    starting_from: Optional[int] = None
+    starting_from: int | None = None
     page_size: int = Field(default=50, ge=1, le=500)
