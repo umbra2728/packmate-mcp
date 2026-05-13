@@ -113,6 +113,11 @@ One-time setup (not in repo state):
 - On PyPI → Account settings → Add a pending publisher with repo `umbra2728/packmate-mcp`, workflow `release.yml`, environment `pypi`.
 - On GitHub → repo → Settings → Environments → create `pypi`.
 
+## Related
+
+- [firegex-mcp](https://github.com/umbra2728/firegex-mcp) — sibling MCP server for [Firegex](https://github.com/Pwnzer0tt1/firegex) (PCRE2 regex / proxy WAF).
+- [ad-ctf-toolkit](https://github.com/umbra2728/ad-ctf-toolkit) — Claude Code plugin that combines `packmate-mcp` and `firegex-mcp` with skills and sub-agents for Attack/Defense CTF rounds.
+
 ## License
 
-MIT.
+MIT — see [LICENSE](LICENSE).
