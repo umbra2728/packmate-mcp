@@ -118,6 +118,14 @@ One-time setup (not in repo state):
 - [firegex-mcp](https://github.com/umbra2728/firegex-mcp) — sibling MCP server for [Firegex](https://github.com/Pwnzer0tt1/firegex) (PCRE2 regex / proxy WAF).
 - [ad-ctf-toolkit](https://github.com/umbra2728/ad-ctf-toolkit) — Claude Code plugin that combines `packmate-mcp` and `firegex-mcp` with skills and sub-agents for Attack/Defense CTF rounds.
 
+## Contact
+
+Questions, suggestions, bug reports, or anything else — reach out:
+
+- **Telegram:** [@ismailgaleev](https://t.me/ismailgaleev)
+- **Email:** [umbra2728@gmail.com](mailto:umbra2728@gmail.com)
+- **GitHub Issues:** preferred for actionable bugs and feature requests
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
