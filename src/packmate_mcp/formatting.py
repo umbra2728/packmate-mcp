@@ -137,6 +137,7 @@ def format_content(
     max_packets: int = 200,
 ) -> str:
     """Render a sequence of packets as a single string in the requested mode."""
+    mode = ContentFormat(mode)  # coerce raw strings ("text", "hex", ...) to enum
     parts: list[str] = []
     used = 0
     for i, p in enumerate(packets):
